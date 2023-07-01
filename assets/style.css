@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 25px;
+}
+
+.questions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top: 50px;
+    height: 100%;
+    flex-direction: column;
+ }
+
+.questions header {
+    width: 50%;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 10px;
+ }
+
+.questions section {
+    width: 50%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+ }
+
+.questions p {
+    background-color: purple;
+    color: white;
+    border: 1px solid black;
+    margin-top: 20px;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 5px 10px;
+    align-items: center;
+ }
+
+.questions p:hover {
+    background-color: rgb(156, 0, 156);
+    cursor: pointer;
+}
+
+.questions section ul li {
+    list-style-type: none;
+    background-color: purple;
+    color: white;
+    border: 1px solid black;
+    margin-top: 10px;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 5px 10px
+ }
+
+ .questions section ul li:hover {
+    background-color: rgb(156, 0, 156);
+    cursor: pointer;
+ }
+
+ #input-answer {
+    font-style: italic;
+    color: gray;
+    /* border-top: 2px solid gray; */
+    width: 50%;
+    margin-top: 10px;
+    padding-top: 5px;
+ }
