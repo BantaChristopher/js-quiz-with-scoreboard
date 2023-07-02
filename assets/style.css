@@ -17,22 +17,20 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    padding: 0px 25%;
     padding-top: 50px;
     height: 100%;
     flex-direction: column;
  }
 
+ .questions h1 {
+    text-align: center;
+ }
+
 .questions header {
-    width: 50%;
     font-weight: 700;
     text-align: center;
     margin-top: 10px;
- }
-
-.questions section {
-    width: 50%;
-    padding-top: 10px;
-    padding-bottom: 10px;
  }
 
 .questions p {
@@ -43,29 +41,12 @@
     border-radius: 10px;
     width: fit-content;
     padding: 5px 10px;
-    align-items: center;
  }
 
 .questions p:hover {
     background-color: rgb(156, 0, 156);
     cursor: pointer;
 }
-
-.questions section ul li {
-    list-style-type: none;
-    background-color: purple;
-    color: white;
-    border: 1px solid black;
-    margin-top: 10px;
-    border-radius: 10px;
-    width: fit-content;
-    padding: 5px 10px
- }
-
- .questions section ul li:hover {
-    background-color: rgb(156, 0, 156);
-    cursor: pointer;
- }
 
  #input-answer {
     font-style: italic;
