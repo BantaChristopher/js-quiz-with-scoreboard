@@ -1,90 +1,224 @@
-// todo timer function
-
+//global variables that all functions need to see
 var timerEl = document.getElementById('countdown');
-
-function countdown() {
-  var timeLeft = 76;
-  var timeInterval = setInterval(function () {
-    timeLeft--;
-    timerEl.textContent = timeLeft
-
-    if (timeLeft === 0) {
-      clearInterval(timeInterval);
-      timerEl.textContent = "0";
-    }
-
-  }, 1175);
-}
-
-// todo something to register when start quiz is pressed
-// todo a function to run when start quiz is pressed
-// todo start couting down
-
+var timeLeft = 76;
+var counter = 0;
+var cancel = 0;
+var click1 = false;
+var click2 = false;
+var click3 = false;
+var click4 = false;
+//global variables to create/delete elements on the page
 var body = document.body;
 var startEl = document.getElementById('gameStart');
 var mainEl = document.createElement('main');
 var mainRemove = document.getElementById("mainRemove");
 var h1El = document.createElement("h1");
 var headerEl = document.createElement("header");
+var sectionEl = document.createElement("section");
+var h2El = document.createElement("h2");
 var p1El = document.createElement("p");
 var p2El = document.createElement("p");
 var p3El = document.createElement("p");
 var p4El = document.createElement("p");
-var questionList = ["When creating an element with JavaScript, which of these is the correct syntax?", "This is question 2:", "This is question 3:", "This is question 4:"];
-var p1Answers = ["1. document.createElement['Element']", "1.", "1.", "1."]
-var p2Answers = ["2. documentCreate.Element('Element')", "2.", "2.", "2."]
-var p3Answers = ["3. document.createElement('Element')", "3.", "3.", "3."]
-var p4Answers = ["4. createDocumentType.Element['Element']", "4.", "4.", "4."]
+var p5El = document.createElement("p");
+
+//This is the timer variable 
+function countdown() {  
+  var timeInterval = setInterval(function () {
+    timeLeft--;
+    timerEl.textContent = timeLeft
+    
+    //This will make it stop counting at the end of the game so we can record the users score.
+    if(cancel === 1) {
+      clearInterval(timeInterval);
+    }
+    
+    if (timeLeft === 0) {
+      clearInterval(timeInterval);
+      timerEl.textContent = "0";
+    }
+
+  }, 1000);
+}
+
+//Full question and answer list
+var questionList = ["When creating an element with JavaScript, which of these is the correct syntax?", "Whats the correct syntax to link your JavaScript file to your HTML?", "Whats the correct way to make an affect happen whilst hovering over an item using CSS?", "When fetching an ID of an element using JavaScript, which of these is the correct syntax?"];
+var p1Answers = ["document.createElement['Element']", "<script>script.js</script>", "element { hover: on }", "document.getElementById('')"]
+var p2Answers = ["documentCreate.Element('Element')", "<script href='script.js'></script>", "element::hover { effect }", "document.grabElementByIdName('')"]
+var p3Answers = ["document.createElement('Element')", "<script link='script.js'></script>", "element:hover { effect }", "document.getElementWithId('')"]
+var p4Answers = ["createDocumentType.Element['Element']", "<script src='script.js'></script>", "hover:element { effect }", "document.getElementByIdName('')"]
+
+//Function to go to the next question and answer in the above arrays,
+function nextQuestion () {
+  counter++
+  headerEl.textContent = questionList[counter];
+  p1El.textContent = "1. " + p1Answers[counter];
+  p2El.textContent = "2. " + p2Answers[counter];
+  p3El.textContent = "3. " + p3Answers[counter];
+  p4El.textContent = "4. " + p4Answers[counter];
+  resetAnswerValues();
+}
+
+//shows after all questions have been answered and presents the use the ability to replay the game
+function endGame () {
+  cancel++
+  p1El.remove()
+  p2El.remove()
+  p3El.remove()
+  p4El.remove()
+  headerEl.setAttribute("style", "align-self: center; text-align:center; font-size: 25px");
+  headerEl.textContent = "Thanks for playing!"
+  mainEl.append(h2El);
+  h2El.textContent = "Your score: " + (timeLeft - 1);
+  mainEl.append(p5El);
+  p5El.textContent = "Play Again?";
+  p5El.setAttribute("style", "align-self:center");
+}
+
+function resetVariables() {
+  cancel = 0;
+  counter = 0;
+  timeLeft = 76;
+  removeLater.remove();
+  h2El.remove();
+  p5El.remove();
+  playGame();
+  countdown();
+  return;
+}
+
+function resetAnswerValues() {
+  click1 = false;
+  click2 = false;
+  click3 = false;
+  click4 = false;
+}
+
+function correctAnswer() {
+  //Checks answers for questions 1-4 using logic
+  if (counter === 0 && click3 == true) {
+    body.appendChild(sectionEl);
+    sectionEl.id = "input-answer";
+    sectionEl.textContent = "Correct!";
+  } else if (counter === 1 && click4 == true) {
+    body.appendChild(sectionEl);
+    sectionEl.id = "input-answer";
+    sectionEl.textContent = "Correct!";
+  } else if (counter === 2 && click3 == true) {
+    body.appendChild(sectionEl);
+    sectionEl.id = "input-answer";
+    sectionEl.textContent = "Correct!";
+  } else if (counter === 3 && click1 == true) {
+    body.appendChild(sectionEl);
+    sectionEl.id = "input-answer";
+    sectionEl.textContent = "Correct!";
+  } else {
+    body.appendChild(sectionEl);
+    sectionEl.id = "input-answer";
+    sectionEl.textContent = "Wrong!";
+    timeLeft = timeLeft - 10;
+    return timeLeft;
+  }
+}
 
 function playGame () {
-    var counter = 0
+    //Adds the initial set of questions and answers
     headerEl.textContent = questionList[counter];
-    p1El.textContent = p1Answers[counter];
-    p2El.textContent = p2Answers[counter];
-    p3El.textContent = p3Answers[counter];
-    p4El.textContent = p4Answers[counter];
+    p1El.textContent = "1. " + p1Answers[counter];
+    p2El.textContent = "2. " + p2Answers[counter];
+    p3El.textContent = "3. " + p3Answers[counter];
+    p4El.textContent = "4. " + p4Answers[counter];
+    
     body.appendChild(mainEl);
     mainEl.appendChild(headerEl);
     mainEl.appendChild(p1El);
     mainEl.appendChild(p2El);
     mainEl.appendChild(p3El);
     mainEl.appendChild(p4El);
+    
+    //Styles newly added elements
     mainEl.className = "questions";
+    mainEl.id = "removeLater"
     headerEl.setAttribute("style", "align-self:start; text-align:left; font-size: 25px");
+    var removeLater = document.getElementById("removeLater")
 
+    //Loops and assigns css to all p tags
     var pTags = document.querySelectorAll("p");
     for (var i = 0; i < pTags.length; i++) {
       pTags[i].setAttribute("style", "align-self:start")
-      pTags[i].id = "click"
     };
+    //ids to listen for clicks on answers
+    p1El.id = "click1";
+    p2El.id = "click2";
+    p3El.id = "click3";
+    p4El.id = "click4";    
 
-    clickEl = document.getElementById('click');
-    clickEl.addEventListener("click", function() {
+    //Listens for a click and inserts new questions/answers. Also watches for there to be no new questions.
+    clickEl1 = document.getElementById("click1");
+    clickEl1.addEventListener("click", function() {
       if (counter < questionList.length - 1) {
-        counter++
-        headerEl.textContent = questionList[counter];
-        p1El.textContent = p1Answers[counter];
-        p2El.textContent = p2Answers[counter];
-        p3El.textContent = p3Answers[counter];
-        p4El.textContent = p4Answers[counter];
+        click1 = true;
+        correctAnswer();
+        nextQuestion();
       } else if (counter = questionList.length) {
-        headerEl.textContent = "Thanks for playing!"
+        correctAnswer();
+        endGame();
+        p5El.addEventListener("click", function() {
+          resetVariables();
+        })
+      }
+    })
+    clickEl2 = document.getElementById("click2");
+    clickEl2.addEventListener("click", function() {
+      if (counter < questionList.length - 1) {
+        click2 = true;
+        correctAnswer();
+        nextQuestion();
+      } else if (counter = questionList.length) {
+        correctAnswer();
+        endGame();
+        p5El.addEventListener("click", function() {
+          resetVariables();
+        })
+      }
+    })
+    clickEl3 = document.getElementById("click3");
+    clickEl3.addEventListener("click", function() {
+      if (counter < questionList.length - 1) {
+        click3=true;
+        correctAnswer();
+        nextQuestion();
+      } else if (counter = questionList.length) {
+        correctAnswer();
+        endGame();
+        p5El.addEventListener("click", function() {
+          resetVariables();
+        })
+      }
+    })
+    clickEl4 = document.getElementById("click4");
+    clickEl4.addEventListener("click", function() {
+      if (counter < questionList.length - 1) {
+        click4 = true;
+        correctAnswer();
+        nextQuestion();
+      } else if (counter = questionList.length) {
+        correctAnswer();
+        endGame();
+        p5El.addEventListener("click", function() {
+          resetVariables();
+        })
       }
     })
   }
 
+// This removes the starting page and activates the game to start running.
 startEl.addEventListener("click", function() {
   mainRemove.remove();
-    countdown();
-    playGame();
+  playGame();
+  countdown();
 })
 
-// todo insert question into header(style to the left) and answers when quiz is started/hide or remove h1
-// todo check to see if answer is correct
-// todo after answer display correct or wrong and move to next question
+
 // todo after questions record time to a highscore, probably as an array
 // todo display scoreboard
-// todo 
-// todo 
-// todo 
-// todo 

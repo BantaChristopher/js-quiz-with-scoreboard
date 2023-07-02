@@ -48,11 +48,15 @@
     cursor: pointer;
 }
 
+h2 {
+    margin-top: 20px;
+}
+
  #input-answer {
     font-style: italic;
     color: gray;
-    /* border-top: 2px solid gray; */
-    width: 50%;
-    margin-top: 10px;
+    border-top: 2px solid gray;
+    /* margin-top: 10px; */
     padding-top: 5px;
+    margin: 10px 25%;
  }
