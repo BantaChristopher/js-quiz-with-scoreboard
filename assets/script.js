@@ -84,7 +84,6 @@ function resetVariables() {
   p5El.remove();
   playGame();
   countdown();
-  return;
 }
 
 function resetAnswerValues() {
@@ -109,10 +108,13 @@ function correctAnswer() {
     sectionEl.id = "input-answer";
     sectionEl.textContent = "Correct!";
   } else if (counter === 3 && click1 == true) {
+    console.log(click1)
     body.appendChild(sectionEl);
     sectionEl.id = "input-answer";
     sectionEl.textContent = "Correct!";
   } else {
+    console.log(counter);
+    console.log(click1);
     body.appendChild(sectionEl);
     sectionEl.id = "input-answer";
     sectionEl.textContent = "Wrong!";
@@ -147,70 +149,72 @@ function playGame () {
     for (var i = 0; i < pTags.length; i++) {
       pTags[i].setAttribute("style", "align-self:start")
     };
-    //ids to listen for clicks on answers
-    p1El.id = "click1";
-    p2El.id = "click2";
-    p3El.id = "click3";
-    p4El.id = "click4";    
-
-    //Listens for a click and inserts new questions/answers. Also watches for there to be no new questions.
-    clickEl1 = document.getElementById("click1");
-    clickEl1.addEventListener("click", function() {
-      if (counter < questionList.length - 1) {
-        click1 = true;
-        correctAnswer();
-        nextQuestion();
-      } else if (counter = questionList.length) {
-        correctAnswer();
-        endGame();
-        p5El.addEventListener("click", function() {
-          resetVariables();
-        })
-      }
-    })
-    clickEl2 = document.getElementById("click2");
-    clickEl2.addEventListener("click", function() {
-      if (counter < questionList.length - 1) {
-        click2 = true;
-        correctAnswer();
-        nextQuestion();
-      } else if (counter = questionList.length) {
-        correctAnswer();
-        endGame();
-        p5El.addEventListener("click", function() {
-          resetVariables();
-        })
-      }
-    })
-    clickEl3 = document.getElementById("click3");
-    clickEl3.addEventListener("click", function() {
-      if (counter < questionList.length - 1) {
-        click3=true;
-        correctAnswer();
-        nextQuestion();
-      } else if (counter = questionList.length) {
-        correctAnswer();
-        endGame();
-        p5El.addEventListener("click", function() {
-          resetVariables();
-        })
-      }
-    })
-    clickEl4 = document.getElementById("click4");
-    clickEl4.addEventListener("click", function() {
-      if (counter < questionList.length - 1) {
-        click4 = true;
-        correctAnswer();
-        nextQuestion();
-      } else if (counter = questionList.length) {
-        correctAnswer();
-        endGame();
-        p5El.addEventListener("click", function() {
-          resetVariables();
-        })
-      }
-    })
+    
   }
+  
+  //ids to listen for clicks on answers
+  p1El.id = "click1";
+  p2El.id = "click2";
+  p3El.id = "click3";
+  p4El.id = "click4";    
+  
+  //Listens for a click and inserts new questions/answers. Also watches for there to be no new questions.
+  p1El.addEventListener("click", function() {
+    if (counter < questionList.length - 1) {
+      click1 = true;
+      correctAnswer();
+      nextQuestion();
+    } else if (counter = questionList.length - 1) {
+      click1 = true;
+      correctAnswer();
+      endGame();
+      p5El.addEventListener("click", function() {
+        resetVariables();
+      })
+    }
+  })
+  p2El.addEventListener("click", function() {
+    if (counter < questionList.length - 1) {
+      click2 = true;
+      correctAnswer();
+      nextQuestion();
+    } else if (counter = questionList.length - 1) {
+      click2 = true;
+      correctAnswer();
+      endGame();
+      p5El.addEventListener("click", function() {
+        resetVariables();
+      })
+    }
+  })
+  p3El.addEventListener("click", function() {
+    if (counter < questionList.length - 1) {
+      click3 = true;
+      correctAnswer();
+      nextQuestion();
+    } else if (counter = questionList.length - 1) {
+      click3 = true;
+      correctAnswer();
+      endGame();
+      p5El.addEventListener("click", function() {
+        resetVariables();
+      })
+    }
+  })
+  p4El.addEventListener("click", function() {
+    if (counter < questionList.length - 1) {
+      click4 = true;
+      correctAnswer();
+      nextQuestion();
+    } else if (counter = questionList.length - 1) {
+      click4 = true;
+      correctAnswer();
+      endGame();
+      p5El.addEventListener("click", function() {
+        resetVariables();
+      })
+    }
+  })
 
 // This removes the starting page and activates the game to start running.
 startEl.addEventListener("click", function() {
