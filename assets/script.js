@@ -7,6 +7,8 @@ var click1 = false;
 var click2 = false;
 var click3 = false;
 var click4 = false;
+var highscores = [];
+
 //global variables to create/delete elements on the page
 var body = document.body;
 var startEl = document.getElementById('gameStart');
@@ -15,6 +17,8 @@ var mainRemove = document.getElementById("mainRemove");
 var h1El = document.createElement("h1");
 var headerEl = document.createElement("header");
 var sectionEl = document.createElement("section");
+var labelEl = document.createElement("label");
+var inputEl = document.createElement("input");
 var h2El = document.createElement("h2");
 var p1El = document.createElement("p");
 var p2El = document.createElement("p");
@@ -33,11 +37,25 @@ function countdown() {
       clearInterval(timeInterval);
     }
     
-    if (timeLeft === 0) {
+    if (timeLeft == 0) {
       clearInterval(timeInterval);
       timerEl.textContent = "0";
     }
 
+  }, 1000);
+}
+
+//This function removes the section element showing wheather you got the answer right or wrong after 2 seconnds.
+function removeSection() {
+  var timeOnScreen = timeLeft;
+  var timeToDissapear = timeOnScreen - 2;
+  
+  var timeInterval2 = setInterval(function() {
+    timeOnScreen--;
+    if(timeOnScreen == timeToDissapear) {
+      clearInterval(timeInterval2);
+      sectionEl.remove();
+    }
   }, 1000);
 }
 
@@ -75,6 +93,7 @@ function endGame () {
   p5El.setAttribute("style", "align-self:center");
 }
 
+//This function resets all variables to make the game playable again.
 function resetVariables() {
   cancel = 0;
   counter = 0;
@@ -86,6 +105,7 @@ function resetVariables() {
   countdown();
 }
 
+//resets the question booleans to check question answers after each question
 function resetAnswerValues() {
   click1 = false;
   click2 = false;
@@ -163,10 +183,12 @@ function playGame () {
     if (counter < questionList.length - 1) {
       click1 = true;
       correctAnswer();
+      removeSection();
       nextQuestion();
     } else if (counter = questionList.length - 1) {
       click1 = true;
       correctAnswer();
+      removeSection();
       endGame();
       p5El.addEventListener("click", function() {
         resetVariables();
@@ -177,10 +199,12 @@ function playGame () {
     if (counter < questionList.length - 1) {
       click2 = true;
       correctAnswer();
+      removeSection();
       nextQuestion();
     } else if (counter = questionList.length - 1) {
       click2 = true;
       correctAnswer();
+      removeSection();
       endGame();
       p5El.addEventListener("click", function() {
         resetVariables();
@@ -191,10 +215,12 @@ function playGame () {
     if (counter < questionList.length - 1) {
       click3 = true;
       correctAnswer();
+      removeSection();
       nextQuestion();
     } else if (counter = questionList.length - 1) {
       click3 = true;
       correctAnswer();
+      removeSection();
       endGame();
       p5El.addEventListener("click", function() {
         resetVariables();
@@ -205,10 +231,12 @@ function playGame () {
     if (counter < questionList.length - 1) {
       click4 = true;
       correctAnswer();
+      removeSection();
       nextQuestion();
     } else if (counter = questionList.length - 1) {
       click4 = true;
       correctAnswer();
+      removeSection();
       endGame();
       p5El.addEventListener("click", function() {
         resetVariables();
