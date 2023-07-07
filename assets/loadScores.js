@@ -1,9 +1,11 @@
 var highscoreList = document.getElementById("highscore-list");
 var highscoreLength = highscores.length
 var highscores = [];
+var reset = document.getElementById("resetScores");
+var menu = document.getElementById("mainMenu");
 
+//places highscores on screen
 function renderHighscores() {
-    console.log(highscores)
     for (var i = 0; i < highscores.length ; i++) {
         var highscore = highscores[i];
         
@@ -13,6 +15,7 @@ function renderHighscores() {
     }
 }
 
+//grabs highscores from localStorage then runs the command to put highscores on stream
 function init() {
     var storedHighscores = JSON.parse(localStorage.getItem("Highscores"));
     
@@ -21,5 +24,16 @@ function init() {
     }
     renderHighscores()
 };
+
+//clears local storage for highscores and 
+reset.addEventListener("click", function() {
+    localStorage.clear("Highscores");
+    window.location.href="highscores.html";
+})
+
+//takes user to main menu
+menu.addEventListener("click", function() {
+    window.location.href="index.html";
+})
 
 init()

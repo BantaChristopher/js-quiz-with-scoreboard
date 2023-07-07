@@ -231,8 +231,8 @@ p4El.id = "click4";
 p5El.addEventListener("click", function() {
     var initialsInput = document.getElementById("initials").value;
     var userScore = {
+      Score: timeLeft,
       Initials: initialsInput,
-      Score: timeLeft
     };
     init()
 
