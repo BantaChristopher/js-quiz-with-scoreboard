@@ -37,12 +37,16 @@ function countdown() {
       clearInterval(timeInterval);
     }
     
-    if (timeLeft == 0) {
+    if (timeLeft <= 0) {
       clearInterval(timeInterval);
       timerEl.textContent = "0";
+      endGame();
+      p5El.addEventListener("click", function() {
+        resetVariables();
+      })
     }
 
-  }, 1000);
+  }, 1175);
 }
 
 //This function removes the section element showing wheather you got the answer right or wrong after 2 seconnds.
@@ -56,15 +60,15 @@ function removeSection() {
       clearInterval(timeInterval2);
       sectionEl.remove();
     }
-  }, 1000);
+  }, 1175);
 }
 
 //Full question and answer list
-var questionList = ["When creating an element with JavaScript, which of these is the correct syntax?", "Whats the correct syntax to link your JavaScript file to your HTML?", "Whats the correct way to make an affect happen whilst hovering over an item using CSS?", "When fetching an ID of an element using JavaScript, which of these is the correct syntax?"];
-var p1Answers = ["document.createElement['Element']", "<script>script.js</script>", "element { hover: on }", "document.getElementById('')"]
-var p2Answers = ["documentCreate.Element('Element')", "<script href='script.js'></script>", "element::hover { effect }", "document.grabElementByIdName('')"]
-var p3Answers = ["document.createElement('Element')", "<script link='script.js'></script>", "element:hover { effect }", "document.getElementWithId('')"]
-var p4Answers = ["createDocumentType.Element['Element']", "<script src='script.js'></script>", "hover:element { effect }", "document.getElementByIdName('')"]
+var questionList = ["When creating an element with JavaScript, which of these is the correct syntax?", "Whats the correct syntax to link your JavaScript file to your HTML?",  "Whats the correct way to make an affect happen whilst hovering over an item using CSS?",  "When fetching an ID of an element using JavaScript, which of these is the correct syntax?",  "Which is the correct way to write a comment in JavaScript?", "Filler", "Filler",  "Filler",  "Filler",  "Filler",  ];
+var p1Answers = ["document.createElement['Element']", "<script>script.js</script>", "element { hover: on }", "document.getElementById('')", "{# ... #}", "Filler", "Filler", "Filler", "Filler", "Filler", ]
+var p2Answers = ["documentCreate.Element('Element')", "<script href='script.js'></script>", "element::hover { effect }", "document.grabElementByIdName('')", "<!--- .... ---!>", "Filler", "Filler", "Filler", "Filler", "Filler", ]
+var p3Answers = ["document.createElement('Element')", "<script link='script.js'></script>", "element:hover { effect }", "document.getElementWithId('')", "// ....", "Filler", "Filler", "Filler", "Filler", "Filler", ] 
+var p4Answers = ["createDocumentType.Element['Element']", "<script src='script.js'></script>", "hover:element { effect }", "document.getElementByIdName('')", "\\ ...", "Filler", "Filler", "Filler", "Filler", "Filler", ]
 
 //Function to go to the next question and answer in the above arrays,
 function nextQuestion () {
@@ -87,10 +91,25 @@ function endGame () {
   headerEl.setAttribute("style", "align-self: center; text-align:center; font-size: 25px");
   headerEl.textContent = "Thanks for playing!"
   mainEl.append(h2El);
-  h2El.textContent = "Your score: " + (timeLeft - 1);
-  mainEl.append(p5El);
-  p5El.textContent = "Play Again?";
-  p5El.setAttribute("style", "align-self:center");
+  //this prevents a negative score from showing up
+  if (timeLeft <= 0) {
+    timeLeft = 0;
+    headerEl.textContent = "Out of Time!";
+    mainEl.append(p5El);
+    p5El.textContent = "Play Again?";
+    p5El.setAttribute("style", "align-self:center");
+  };
+  h2El.textContent = "Your score: " + (timeLeft);
+  if (timeLeft > 0) {
+    labelEl.htmlFor = "initials";
+    labelEl.textContent = "Enter your Initials: ";
+    inputEl.id = "initials";
+    mainEl.append(labelEl);
+    labelEl.append(inputEl);
+    mainEl.append(p5El);
+    p5El.textContent = "Submit";
+    p5El.setAttribute("style", "align-self:center");
+  };
 }
 
 //This function resets all variables to make the game playable again.
@@ -101,6 +120,7 @@ function resetVariables() {
   removeLater.remove();
   h2El.remove();
   p5El.remove();
+  labelEl.remove();
   playGame();
   countdown();
 }
@@ -128,13 +148,34 @@ function correctAnswer() {
     sectionEl.id = "input-answer";
     sectionEl.textContent = "Correct!";
   } else if (counter === 3 && click1 == true) {
-    console.log(click1)
+    body.appendChild(sectionEl);
+    sectionEl.id = "input-answer";
+    sectionEl.textContent = "Correct!";
+  } else if (counter === 4 && click3 == true) {
+    body.appendChild(sectionEl);
+    sectionEl.id = "input-answer";
+    sectionEl.textContent = "Correct!";
+  } else if (counter === 5 && click3 == true) {
+    body.appendChild(sectionEl);
+    sectionEl.id = "input-answer";
+    sectionEl.textContent = "Correct!";
+  } else if (counter === 6 && click3 == true) {
+    body.appendChild(sectionEl);
+    sectionEl.id = "input-answer";
+    sectionEl.textContent = "Correct!";
+  } else if (counter === 7 && click3 == true) {
+    body.appendChild(sectionEl);
+    sectionEl.id = "input-answer";
+    sectionEl.textContent = "Correct!";
+  } else if (counter === 8 && click3 == true) {
+    body.appendChild(sectionEl);
+    sectionEl.id = "input-answer";
+    sectionEl.textContent = "Correct!";
+  } else if (counter === 9 && click3 == true) {
     body.appendChild(sectionEl);
     sectionEl.id = "input-answer";
     sectionEl.textContent = "Correct!";
   } else {
-    console.log(counter);
-    console.log(click1);
     body.appendChild(sectionEl);
     sectionEl.id = "input-answer";
     sectionEl.textContent = "Wrong!";
@@ -142,6 +183,15 @@ function correctAnswer() {
     return timeLeft;
   }
 }
+
+function init() {
+  var storedHighscores = JSON.parse(localStorage.getItem("Highscores"));
+  
+  if (storedHighscores != null) {
+      highscores = storedHighscores;
+      console.log(highscores)
+  }
+};
 
 function playGame () {
     //Adds the initial set of questions and answers
@@ -172,14 +222,30 @@ function playGame () {
     
   }
   
-  //ids to listen for clicks on answers
-  p1El.id = "click1";
-  p2El.id = "click2";
-  p3El.id = "click3";
-  p4El.id = "click4";    
+//ids to listen for clicks on answers
+p1El.id = "click1";
+p2El.id = "click2";
+p3El.id = "click3";
+p4El.id = "click4";    
   
-  //Listens for a click and inserts new questions/answers. Also watches for there to be no new questions.
-  p1El.addEventListener("click", function() {
+p5El.addEventListener("click", function() {
+    var initialsInput = document.getElementById("initials").value;
+    var userScore = {
+      Initials: initialsInput,
+      Score: timeLeft
+    };
+    init()
+
+    highscores.push(userScore);
+    
+    localStorage.setItem("Highscores", JSON.stringify(highscores));
+    window.location.href="highscores.html";
+})
+
+
+//Listens for a click and inserts new questions/answers. Also watches for there to be no new questions.
+
+p1El.addEventListener("click", function() {
     if (counter < questionList.length - 1) {
       click1 = true;
       correctAnswer();
@@ -190,12 +256,9 @@ function playGame () {
       correctAnswer();
       removeSection();
       endGame();
-      p5El.addEventListener("click", function() {
-        resetVariables();
-      })
     }
-  })
-  p2El.addEventListener("click", function() {
+})
+p2El.addEventListener("click", function() {
     if (counter < questionList.length - 1) {
       click2 = true;
       correctAnswer();
@@ -206,12 +269,9 @@ function playGame () {
       correctAnswer();
       removeSection();
       endGame();
-      p5El.addEventListener("click", function() {
-        resetVariables();
-      })
     }
-  })
-  p3El.addEventListener("click", function() {
+})
+p3El.addEventListener("click", function() {
     if (counter < questionList.length - 1) {
       click3 = true;
       correctAnswer();
@@ -222,12 +282,9 @@ function playGame () {
       correctAnswer();
       removeSection();
       endGame();
-      p5El.addEventListener("click", function() {
-        resetVariables();
-      })
     }
-  })
-  p4El.addEventListener("click", function() {
+})
+p4El.addEventListener("click", function() {
     if (counter < questionList.length - 1) {
       click4 = true;
       correctAnswer();
@@ -238,11 +295,8 @@ function playGame () {
       correctAnswer();
       removeSection();
       endGame();
-      p5El.addEventListener("click", function() {
-        resetVariables();
-      })
     }
-  })
+})
 
 // This removes the starting page and activates the game to start running.
 startEl.addEventListener("click", function() {
@@ -251,6 +305,7 @@ startEl.addEventListener("click", function() {
   countdown();
 })
 
+// init();
 
 // todo after questions record time to a highscore, probably as an array
 // todo display scoreboard

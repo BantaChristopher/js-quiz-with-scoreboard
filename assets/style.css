@@ -57,6 +57,32 @@ h2 {
     margin-top: 20px;
 }
 
+input {
+    display: flex;
+}
+
+label {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+ul {
+    text-align: center;
+    font-weight: 600; 
+}
+
+li {
+    list-style: none;
+}
+
+div {
+    align-content: space-between;
+    width: 75%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
  #input-answer {
     font-style: italic;
     color: gray;
