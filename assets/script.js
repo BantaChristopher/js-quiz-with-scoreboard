@@ -134,7 +134,7 @@ function resetAnswerValues() {
 }
 
 function correctAnswer() {
-  //Checks answers for questions 1-4 using logic
+  //Checks answers for questions using logic
   if (counter === 0 && click3 == true) {
     body.appendChild(sectionEl);
     sectionEl.id = "input-answer";
@@ -304,8 +304,3 @@ startEl.addEventListener("click", function() {
   playGame();
   countdown();
 })
-
-// init();
-
-// todo after questions record time to a highscore, probably as an array
-// todo display scoreboard
